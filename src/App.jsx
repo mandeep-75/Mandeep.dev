@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Footer from './components/common/Footer';
+import CustomCursor from './components/cursor/CustomCursor';
+import MagneticWrapper from './components/cursor/MagneticWrapper';
+import About from './components/sections/About';
+import Contact from './components/sections/Contact';
+import Hero from './components/sections/Hero';
+import Skills from './components/sections/Skills';
+import Socials from './components/sections/Social';
+import Button from './components/ui/Button';
+import Card from './components/ui/Card';
+import ProgressBar from './components/ui/ProgressBar';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}dscsdc
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="bg-gradient-to-b from-gray-900 to-black min-h-screen font-sans text-white">
+      <CustomCursor />
+      <MagneticWrapper>
+        <Hero />
+        <About />
+        <Skills />
+        <Card />
+        <ProgressBar />
+        <Socials />
+        <Contact />
+      </MagneticWrapper>
+      <Footer />
+    </div>
+  );
 }
-
-export default App
+export default App;
