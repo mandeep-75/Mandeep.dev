@@ -1,33 +1,31 @@
 import { motion } from "framer-motion";
 
-export default function Button({ children, onClick }) {
+export default function Button({ children, onClick, variant = "primary", className = "", ...props }) {
+  const variants = {
+    primary: "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/30 border border-blue-400/20",
+    secondary: "bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/10",
+    outline: "bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-500/10"
+  };
+
   return (
     <motion.button
       onClick={onClick}
-      className="
-        bg-blue-500 
-        hover:bg-blue-600 
-        focus:bg-blue-700
-        text-white 
-        font-semibold
-        px-4 py-2
-        md:px-6 md:py-3
-        rounded-full
-        shadow-md
-        focus:outline-none 
-        focus:ring-2 
-        focus:ring-blue-400 
-        transition
-        active:scale-95
-        text-base
-        md:text-lg
-        tracking-wide
-      "
-      whileTap={{ scale: 0.92 }}
-      whileHover={{ scale: 1.04, boxShadow: "0px 4px 18px #3b82f655" }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      className={`
+        relative overflow-hidden
+        px-6 py-3 rounded-xl
+        font-semibold tracking-wide
+        transition-all duration-300
+        cursor-pointer
+        ${variants[variant]}
+        ${className}
+      `}
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      {...props}
     >
-      {children}
+      <span className="relative z-10 flex items-center gap-2 justify-center">
+        {children}
+      </span>
     </motion.button>
   );
 }

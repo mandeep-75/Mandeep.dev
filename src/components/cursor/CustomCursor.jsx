@@ -1,190 +1,129 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function CustomCursor() {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const [clicks, setClicks] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const clickInProgress = useRef(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [clicked, setClicked] = useState(false);
+  const [linkHovered, setLinkHovered] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
-  // Smooth spring physics
-  const springConfig = {
-    stiffness: 150,
-    damping: 15,
-    mass: 0.1,
+  useEffect(() => {
+    const addEventListeners = () => {
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mousedown", onMouseDown);
+      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mouseover", onMouseOver);
+      document.addEventListener("mouseout", onMouseOut);
+    };
+
+    const removeEventListeners = () => {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseout", onMouseOut);
+    };
+
+    const onMouseMove = (e) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    const onMouseDown = () => {
+      setClicked(true);
+    };
+
+    const onMouseUp = () => {
+      setClicked(false);
+    };
+
+    const onMouseOver = (e) => {
+      const tagName = e.target.tagName.toLowerCase();
+      // Check if target is interactive
+      if (
+        tagName === "button" ||
+        tagName === "a" ||
+        tagName === "input" ||
+        tagName === "textarea" ||
+        e.target.closest("button") ||
+        e.target.closest("a") || 
+        e.target.style.cursor === "pointer"
+      ) {
+        setLinkHovered(true);
+      } else {
+        setLinkHovered(false);
+      }
+    };
+
+    const onMouseOut = () => {
+      setLinkHovered(false);
+    };
+    
+    // Hide cursor when leaving window
+    document.body.addEventListener("mouseleave", () => setHidden(true));
+    document.body.addEventListener("mouseenter", () => setHidden(false));
+
+    addEventListeners();
+    return () => removeEventListeners();
+  }, []);
+
+  const cursorVariants = {
+    default: {
+      x: position.x - 16,
+      y: position.y - 16,
+      height: 32,
+      width: 32,
+      backgroundColor: "transparent",
+      border: "2px solid #3b82f6",
+      opacity: 1,
+    },
+    hovered: {
+      x: position.x - 24,
+      y: position.y - 24,
+      height: 48,
+      width: 48,
+      border: "2px solid #60a5fa",
+      backgroundColor: "rgba(59, 130, 246, 0.1)",
+    },
+    clicked: {
+      height: 24,
+      width: 24,
+      x: position.x - 12,
+      y: position.y - 12,
+      backgroundColor: "#3b82f6",
+    }
   };
 
-  const springX = useSpring(cursorX, springConfig);
-  const springY = useSpring(cursorY, springConfig);
+  const dotVariants = {
+    default: {
+      x: position.x - 4,
+      y: position.y - 4,
+      opacity: 1,
+    },
+    hovered: {
+      x: position.x - 4,
+      y: position.y - 4,
+      opacity: 0, 
+    }
+  }
 
-  // Transform for orb pulsing
-  const pulseScale = useTransform(
-    springX,
-    [0, typeof window !== "undefined" ? window.innerWidth : 1920],
-    [0.95, 1.05]
-  );
-
-  // Follow mouse
-  useEffect(() => {
-    let rafId;
-    const move = (e) => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        cursorX.set(e.clientX);
-        cursorY.set(e.clientY);
-      });
-    };
-
-    window.addEventListener("mousemove", move);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [cursorX, cursorY]);
-
-  // Handle cursor visibility
-  useEffect(() => {
-    const handleMouseEnter = () => setIsVisible(true);
-    const handleMouseLeave = () => setIsVisible(false);
-
-    document.addEventListener("mouseenter", handleMouseEnter);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  // Click ripple effect
-  useEffect(() => {
-    const handleMouseDown = (e) => {
-      if (clickInProgress.current) return;
-      clickInProgress.current = true;
-
-      const id = Date.now();
-      setClicks((prev) => [
-        ...prev,
-        {
-          id,
-          x: e.clientX,
-          y: e.clientY,
-        },
-      ]);
-
-      // Auto-cleanup
-      setTimeout(() => {
-        setClicks((prev) => prev.filter((click) => click.id !== id));
-      }, 800); // Shorter duration for smaller ripple
-    };
-
-    const handleMouseUp = () => {
-      clickInProgress.current = false;
-    };
-
-    document.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      document.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
-
-  // Hide default cursor
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      * { 
-        cursor: none !important; 
-      }
-      @media (pointer: coarse) {
-        * {
-          cursor: auto !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
-
-  // Consistent orb gradient (no color change)
-  const orbGradient =
-    "radial-gradient(circle at 30% 30%, #22d3ee 0%, #3b82f6 40%, #9333ea 80%, #ec4899 100%)";
+  if (typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      return null; // Don't render on mobile
+  }
 
   return (
-    <>
-      {/* Main Cursor Orb - Consistent Color */}
+    <div className={`pointer-events-none fixed left-0 top-0 z-[9999] hidden md:block ${hidden ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
       <motion.div
-        className="fixed z-[9999] pointer-events-none rounded-full 
-                   -translate-x-1/2 -translate-y-1/2 select-none"
-        style={{
-          x: springX,
-          y: springY,
-          scale: pulseScale,
-          width: 16, // Consistent size
-          height: 16, // Consistent size
-          background: orbGradient,
-          boxShadow:
-            "0 0 25px 8px rgba(59,130,246,0.6), inset 0 0 8px rgba(255,255,255,0.2)",
-          opacity: isVisible ? 1 : 0,
-          filter: "brightness(1.1) contrast(1.2)",
-        }}
-        animate={{
-          scale: [1, 1.15, 1], // Consistent gentle pulse
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="rounded-full absolute"
+        variants={cursorVariants}
+        animate={clicked ? "clicked" : linkHovered ? "hovered" : "default"}
+        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       />
-
-      {/* Smaller Ripple Effects */}
-      {clicks.map((click) => (
-        <motion.div
-          key={click.id}
-          className="fixed z-[9998] pointer-events-none rounded-full 
-                     -translate-x-1/2 -translate-y-1/2"
-          initial={{
-            scale: 0,
-            opacity: 0.8,
-            x: click.x,
-            y: click.y,
-          }}
-          animate={{
-            scale: 3, // Smaller scale (was 8)
-            opacity: 0,
-          }}
-          exit={{ opacity: 0 }}
-          transition={{
-            duration: 0.6, // Shorter duration
-            ease: "easeOut",
-          }}
-          style={{
-            width: 60, // Smaller initial size
-            height: 60, // Smaller initial size
-            background: `
-              radial-gradient(
-                circle at center,
-                rgba(34, 211, 238, 0.5) 0%,
-                rgba(59, 130, 246, 0.4) 25%,
-                rgba(147, 51, 234, 0.3) 50%,
-                rgba(236, 72, 153, 0.2) 75%,
-                transparent 90%
-              )
-            `,
-            backdropFilter: "blur(4px) saturate(180%)", // Less blur
-            WebkitBackdropFilter: "blur(4px) saturate(180%)",
-            mixBlendMode: "screen",
-          }}
-        />
-      ))}
-    </>
+      <motion.div 
+        className="fixed w-2 h-2 bg-blue-400 rounded-full pointer-events-none z-[9999]"
+        variants={dotVariants}
+        animate={linkHovered ? "hovered" : "default"}
+        transition={{ duration: 0.1 }}
+      />
+    </div>
   );
 }
