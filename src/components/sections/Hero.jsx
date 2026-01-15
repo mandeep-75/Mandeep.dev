@@ -28,6 +28,7 @@ export default function Hero() {
                 I Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Digital Experiences</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                all this are dummy for now under construction 
                 Transforming ideas into exceptional web and mobile applications with modern technologies and pixel-perfect design.
             </p>
         </motion.div>
