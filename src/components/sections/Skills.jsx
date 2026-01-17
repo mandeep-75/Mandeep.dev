@@ -34,7 +34,7 @@ export default function Skills() {
         </p>
       </motion.div>
 
-      <div className={`flex flex-col md:grid md:grid-cols-3 lg:grid-cols-4 ${isExpanded ? 'gap-6' : 'gap-0'} transition-all duration-300`}>
+      <div className={`flex flex-col md:grid md:grid-cols-3 lg:grid-cols-4 ${isExpanded ? 'gap-6' : 'gap-3'} transition-all duration-300`}>
         {skills.map((skill, index) => (
           <motion.div
             key={skill.name}
