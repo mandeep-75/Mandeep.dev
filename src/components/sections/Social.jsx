@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
 const socials = [
-  { name: "LinkedIn", url: "https://www.linkedin.com/", color: "hover:text-blue-500" },
-  { name: "GitHub", url: "https://github.com/", color: "hover:text-gray-100" },
-  { name: "Twitter", url: "https://twitter.com/", color: "hover:text-sky-400" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/mandeep-singh-3433a231a//", color: "hover:text-blue-500" },
+  { name: "GitHub", url: "https://github.com/mandeep-75", color: "hover:text-gray-100" },
+  { name: "Twitter", url: "https://x.com/Dev1309Singh", color: "hover:text-sky-400" },
 ];
 
 export default function Socials() {

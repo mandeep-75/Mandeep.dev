@@ -17,6 +17,7 @@ export default function Projects() {
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
           Here are some of the projects I've worked on. Each represents a unique challenge and solution.
+          dummy for now under construction 
         </p>
       </motion.div>
 
