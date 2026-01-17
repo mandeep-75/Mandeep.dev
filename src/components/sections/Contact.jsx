@@ -45,6 +45,7 @@ export default function Contact() {
                             Have a project in mind or want to talk tech? I’m always open to new opportunities and collaborations.
                         </p>
 
+
                         <div className="space-y-4 pt-4">
                             <div className="flex items-center gap-4 text-gray-300">
                                 <span className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-blue-400">✉️</span>
@@ -55,9 +56,16 @@ export default function Contact() {
                                 <span>Remote / Worldwide</span>
                             </div>
                         </div>
+
+                        <div className="mt-8 p-4 bg-blue-500/5 rounded-lg border border-blue-500/10">
+                            <p className="text-sm text-blue-200/80 italic">
+                                "Yes, this form actually works. And yes, I actually read the emails. I know, shocking for a portfolio site, right? 😲"
+                            </p>
+                        </div>
                     </div>
 
                     {/* FORM */}
+
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div className="space-y-2">
                             <label className="text-sm text-gray-400 font-medium ml-1">
