@@ -1,14 +1,18 @@
-import BlackLoopImage from "../assets/blackloop-homepage.png";
+import BlackLoopImage from "../assets/blackloop_homepage.png";
+import yt_automation from "../assets/yt_automation.png"
+import coc_bot from "../assets/coc_bot.png"
+import subtitle from "../assets/subtitle.png"
+import nexus_go from "../assets/nexus_go_combined.png"
 export const projects = [
     {
         id: 1,
         title: "YouTube Automation",
         description: "AI-powered pipeline that transforms raw videos into narrated YouTube Shorts with auto-upload.",
         tags: ["Python", "Ollama", "Automation", "AI"],
-        image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800",
+        image: yt_automation,
         link: "#",
         github: "https://github.com/mandeep-75/youtube_automation",
-        privateCode: true,
+        privateCode: false,
         socialLinks: {
             youtube: "https://www.youtube.com/@bangb_iteeg"
         },
@@ -28,7 +32,7 @@ export const projects = [
         title: "CoC Bot",
         description: "Terminal bot automating Clash of Clans attacks with ADB and image recognition.",
         tags: ["Python", "ADB", "Automation"],
-        image: "https://images.unsplash.com/photo-1611432571553-8b012321ce7d?auto=format&fit=crop&q=80&w=800",
+        image: coc_bot,
         video: "/Mandeep.dev/coc-bot.mp4",
         link: "#",
         github: "https://github.com/mandeep-75/coc_bot"
@@ -38,16 +42,16 @@ export const projects = [
         title: "AutoSub Burn",
         description: "Video subtitling tool using Whisper for transcription and karaoke effects.",
         tags: ["Python", "Whisper", "Video"],
-        image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=800",
+        image: subtitle,
         link: "https://colab.research.google.com/github/mandeep-75/autosub-burn/blob/python-whisper/colab/subtitles.ipynb",
         github: "https://github.com/mandeep-75/autosub-burn"
     },
     {
         id: 5,
-        title: "WebViewApp",
-        description: "React Native app with custom WebView, tab navigation and fullscreen video.",
+        title: "Nexus Go",
+        description: "React Native app with custom WebView, tab navigation.",
         tags: ["React Native", "Expo", "Mobile"],
-        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800",
+        image: nexus_go,
         link: "#",
         github: "https://github.com/mandeep-75/WebViewApp"
     },

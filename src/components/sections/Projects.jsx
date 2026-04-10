@@ -53,12 +53,32 @@ function ProjectCard({ project, featured = false }) {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-[#12121a]/20 to-transparent z-10" />
           
-          {/* Image */}
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          {/* Image with scroll animation for BlackLoop/Nexus Go or top align for certain projects */}
+          {project.title === "BlackLoop" || project.title === "Nexus Go" ? (
+            <div className="w-full h-[200%] absolute top-0 left-0 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full object-cover"
+                style={{ 
+                  animation: "scrollUp 20s linear infinite",
+                  height: "200%"
+                }}
+              />
+              <style>{`
+                @keyframes scrollUp {
+                  0% { transform: translateY(0); }
+                  100% { transform: translateY(-50%); }
+                }
+              `}</style>
+            </div>
+          ) : (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover object-top"
+            />
+          )}
 
           {/* Project Type Badge */}
           <div className="absolute top-4 left-4 z-20">
