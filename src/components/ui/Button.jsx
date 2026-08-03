@@ -17,33 +17,33 @@ export default function Button({
 }) {
   const variants = {
     primary: `
-      bg-gradient-to-r from-[#00f5d4] to-[#00d4aa] 
-      text-[#0a0a0f] 
-      font-semibold 
-      shadow-[0_0_20px_rgba(0,245,212,0.3)]
-      hover:shadow-[0_0_30px_rgba(0,245,212,0.5)]
+      bg-gradient-to-r from-[#c25a3e] to-[#d4895b]
+      text-white
+      font-semibold
+      shadow-[0_4px_16px_rgba(194,90,62,0.25)]
+      hover:shadow-[0_6px_24px_rgba(194,90,62,0.35)]
       border border-transparent
     `,
     secondary: `
-      bg-[#1a1a24] 
-      text-[#f8f8f2] 
-      border border-[rgba(255,255,255,0.1)]
-      hover:border-[rgba(255,255,255,0.2)]
-      hover:bg-[#22222e]
+      bg-[#f5f3ef]
+      text-[#2d2a24]
+      border border-[rgba(45,42,36,0.1)]
+      hover:border-[rgba(45,42,36,0.2)]
+      hover:bg-[#f0ede8]
     `,
     outline: `
-      bg-transparent 
-      text-[#00f5d4] 
-      border border-[#00f5d4]/50
-      hover:bg-[#00f5d4]/10
-      hover:border-[#00f5d4]
+      bg-transparent
+      text-[#c25a3e]
+      border border-[rgba(194,90,62,0.4)]
+      hover:bg-[rgba(194,90,62,0.06)]
+      hover:border-[#c25a3e]
     `,
     ghost: `
-      bg-transparent 
-      text-[#a0a0b0] 
+      bg-transparent
+      text-[#6b6560]
       border border-transparent
-      hover:text-[#f8f8f2]
-      hover:bg-[#1a1a24]
+      hover:text-[#2d2a24]
+      hover:bg-[#f5f3ef]
     `
   };
 

@@ -37,16 +37,16 @@ export default function Contact() {
             <div className="max-w-5xl mx-auto">
                 
                 {/* Decorative background elements */}
-                <div className="relative bg-[#12121a] border border-[rgba(255,255,255,0.08)] rounded-3xl p-8 md:p-12 overflow-hidden">
+                <div className="relative bg-white border border-[rgba(45,42,36,0.08)] rounded-3xl p-8 md:p-12 overflow-hidden">
                     {/* Corner decorations */}
-                    <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[#00f5d4]/30 rounded-tl-3xl" />
-                    <div className="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-[#ff006e]/30 rounded-tr-3xl" />
-                    <div className="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-[#8338ec]/30 rounded-bl-3xl" />
-                    <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-[#ffd60a]/30 rounded-br-3xl" />
+                    <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[rgba(194,90,62,0.2)] rounded-tl-3xl" />
+                    <div className="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-[rgba(74,106,122,0.2)] rounded-tr-3xl" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 border-b-2 border-l-2 border-[rgba(90,122,138,0.2)] rounded-bl-3xl" />
+                    <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-[rgba(212,137,91,0.2)] rounded-br-3xl" />
                     
-                    {/* Gradient orbs */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[rgba(0,245,212,0.05)] rounded-full blur-[100px] -mr-32 -mt-32" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[rgba(255,0,110,0.05)] rounded-full blur-[100px] -ml-32 -mb-32" />
+                    {/* Subtle gradient orbs */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[rgba(194,90,62,0.03)] rounded-full blur-[100px] -mr-32 -mt-32" />
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[rgba(74,106,122,0.03)] rounded-full blur-[100px] -ml-32 -mb-32" />
 
                     <div className="max-w-xl mx-auto relative z-10">
                         <div className="text-center mb-10">
@@ -56,19 +56,19 @@ export default function Contact() {
                                 viewport={{ once: true }}
                             >
                                 <div className="flex items-center justify-center gap-3 mb-4">
-                                    <div className="w-10 h-[2px] bg-gradient-to-r from-transparent to-[#00f5d4]" />
-                                    <span className="text-[#00f5d4] font-mono text-sm uppercase tracking-wider">
+                                    <div className="w-10 h-[2px] bg-gradient-to-r from-transparent to-[#c25a3e]" />
+                                    <span className="text-[#c25a3e] font-mono text-sm uppercase tracking-wider">
                                         Get in Touch
                                     </span>
-                                    <div className="w-10 h-[2px] bg-gradient-to-l from-transparent to-[#00f5d4]" />
+                                    <div className="w-10 h-[2px] bg-gradient-to-l from-transparent to-[#c25a3e]" />
                                 </div>
-                                <h2 className="text-4xl font-bold text-[#f8f8f2] mb-4">
+                                <h2 className="text-4xl font-bold text-[#2d2a24] mb-4">
                                     Let's <span className="gradient-text">Connect</span>
                                 </h2>
                             </motion.div>
 
                             <motion.p 
-                                className="text-[#a0a0b0]"
+                                className="text-[#6b6560]"
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -94,9 +94,9 @@ export default function Contact() {
                                     name="name"
                                     required
                                     placeholder=" "
-                                    className="peer w-full bg-[#1a1a24] border border-[rgba(255,255,255,0.08)] rounded-xl px-4 py-4 text-[#f8f8f2] placeholder-transparent focus:border-[#00f5d4] focus:border-opacity-50 outline-none transition-colors"
+                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors"
                                 />
-                                <label className="absolute left-4 top-4 text-[#606070] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#00f5d4] peer-focus:bg-[#12121a] peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#1a1a24] px-1">
+                                <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Name
                                 </label>
                             </div>
@@ -108,9 +108,9 @@ export default function Contact() {
                                     name="email"
                                     required
                                     placeholder=" "
-                                    className="peer w-full bg-[#1a1a24] border border-[rgba(255,255,255,0.08)] rounded-xl px-4 py-4 text-[#f8f8f2] placeholder-transparent focus:border-[#00f5d4] focus:border-opacity-50 outline-none transition-colors"
+                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors"
                                 />
-                                <label className="absolute left-4 top-4 text-[#606070] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#00f5d4] peer-focus:bg-[#12121a] peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#1a1a24] px-1">
+                                <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Email
                                 </label>
                             </div>
@@ -122,9 +122,9 @@ export default function Contact() {
                                     required
                                     rows="4"
                                     placeholder=" "
-                                    className="peer w-full bg-[#1a1a24] border border-[rgba(255,255,255,0.08)] rounded-xl px-4 py-4 text-[#f8f8f2] placeholder-transparent focus:border-[#00f5d4] focus:border-opacity-50 outline-none transition-colors resize-none"
+                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors resize-none"
                                 />
-                                <label className="absolute left-4 top-4 text-[#606070] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#00f5d4] peer-focus:bg-[#12121a] peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#1a1a24] px-1">
+                                <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Message
                                 </label>
                             </div>

@@ -58,12 +58,12 @@ export default function CustomCursor() {
     <>
       {/* Main cursor dot */}
       <motion.div
-        className={`pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-difference ${hidden ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+        className={`pointer-events-none fixed left-0 top-0 z-[9999] ${hidden ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
         aria-hidden="true"
         style={{ x: x, y: y, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
-          className="w-2 h-2 bg-[#00f5d4] rounded-full"
+          className="w-2 h-2 bg-[#c25a3e] rounded-full"
           animate={{
             scale: isHovering ? 2 : 1,
           }}
@@ -71,7 +71,7 @@ export default function CustomCursor() {
         />
       </motion.div>
 
-      {/* Outer glow ring */}
+      {/* Outer ring */}
       <motion.div
         className={`pointer-events-none fixed left-0 top-0 z-[9998] ${hidden ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
         aria-hidden="true"
@@ -80,8 +80,8 @@ export default function CustomCursor() {
         <motion.div
           className={`rounded-full border-2 transition-colors duration-300 ${
             isHovering 
-              ? 'border-[#ff006e] shadow-[0_0_20px_rgba(255,0,110,0.5)]' 
-              : 'border-[#00f5d4]/30 shadow-[0_0_15px_rgba(0,245,212,0.2)]'
+              ? 'border-[#4a6a7a]' 
+              : 'border-[#c25a3e]/30'
           }`}
           animate={{
             width: isHovering ? 60 : 40,
@@ -91,14 +91,14 @@ export default function CustomCursor() {
         />
       </motion.div>
 
-      {/* Large ambient glow */}
+      {/* Ambient glow */}
       <motion.div
-        className={`pointer-events-none fixed left-0 top-0 z-[9997] ${hidden ? 'opacity-0' : 'opacity-60'} transition-opacity duration-300`}
+        className={`pointer-events-none fixed left-0 top-0 z-[9997] ${hidden ? 'opacity-0' : 'opacity-40'} transition-opacity duration-300`}
         aria-hidden="true"
         style={{ x: x, y: y, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
-          className="bg-gradient-to-br from-[#00f5d4]/10 to-[#8338ec]/10 rounded-full blur-[60px]"
+          className="bg-gradient-to-br from-[#c25a3e]/8 to-[#4a6a7a]/8 rounded-full blur-[60px]"
           animate={{
             width: isHovering ? 300 : 200,
             height: isHovering ? 300 : 200,

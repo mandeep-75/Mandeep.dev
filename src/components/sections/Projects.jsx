@@ -39,11 +39,12 @@ function ProjectCard({ project, featured = false }) {
     >
       <div className={`
         relative overflow-hidden
-        bg-[#12121a] rounded-2xl
-        border border-[rgba(255,255,255,0.08)]
+        bg-white rounded-2xl
+        border border-[rgba(45,42,36,0.08)]
         transition-all duration-500
-        hover:border-[rgba(0,245,212,0.3)]
-        hover:shadow-[0_0_40px_rgba(0,245,212,0.1)]
+        hover:border-[rgba(194,90,62,0.2)]
+        hover:shadow-[0_0_40px_rgba(194,90,62,0.06)]
+        flex flex-col h-full
       `}>
         {/* Image/GIF Container */}
         <div className={`
@@ -51,7 +52,7 @@ function ProjectCard({ project, featured = false }) {
           ${featured ? "h-72 md:h-80" : "h-52"}
         `}>
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-[#12121a]/20 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent z-10" />
           
           {/* Image with scroll animation for BlackLoop/Nexus Go or top align for certain projects */}
           {project.title === "BlackLoop" || project.title === "Nexus Go" ? (
@@ -82,22 +83,22 @@ function ProjectCard({ project, featured = false }) {
 
           {/* Project Type Badge */}
           <div className="absolute top-4 left-4 z-20">
-            <span className="px-3 py-1 text-xs font-mono uppercase tracking-wider bg-[#0a0a0f]/80 backdrop-blur-sm text-[#00f5d4] rounded-full border border-[#00f5d4]/30">
-              {featured ? "★ Featured" : "Project"}
+            <span className={`px-3 py-1 text-xs font-mono uppercase tracking-wider bg-white/90 backdrop-blur-sm rounded-full border ${project.forSale ? 'text-[#d4895b] border-[rgba(212,137,91,0.3)]' : 'text-[#c25a3e] border-[rgba(194,90,62,0.2)]'}`}>
+              {project.forSale ? "★ For Sale" : featured ? "★ Featured" : "Project"}
             </span>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6 md:p-8">
+        <div className="p-6 md:p-8 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div className="flex-1">
-              <h3 className={`font-bold text-[#f8f8f2] mb-2 group-hover:text-[#00f5d4] transition-colors ${
+              <h3 className={`font-bold text-[#2d2a24] mb-2 group-hover:text-[#c25a3e] transition-colors ${
                 featured ? "text-2xl md:text-3xl" : "text-xl"
               }`}>
                 {project.title}
               </h3>
-              <p className={`text-[#a0a0b0] leading-relaxed ${
+              <p className={`text-[#6b6560] leading-relaxed ${
                 featured ? "text-base md:text-lg" : "text-sm"
               }`}>
                 {project.description}
@@ -110,13 +111,15 @@ function ProjectCard({ project, featured = false }) {
             {project.tags.map((tag) => (
               <span 
                 key={tag} 
-                className="px-3 py-1 text-xs font-medium rounded-full bg-[#1a1a24] text-[#a0a0b0] border border-[rgba(255,255,255,0.08)] hover:border-[#00f5d4]/30 hover:text-[#00f5d4] transition-colors"
+                className="px-3 py-1 text-xs font-medium rounded-full bg-[#f5f3ef] text-[#6b6560] border border-[rgba(45,42,36,0.06)] hover:border-[rgba(194,90,62,0.2)] hover:text-[#c25a3e] transition-colors"
               >
                 {tag}
               </span>
             ))}
           </div>
 
+          {/* Bottom section pushed to bottom when card is stretched */}
+          <div className="mt-auto">
           {/* Actions */}
           <div className="flex items-center gap-3">
             {project.privateCode ? (
@@ -133,7 +136,7 @@ function ProjectCard({ project, featured = false }) {
                   View Details
                 </Button>
               </Link>
-            ) : (
+            ) : project.github ? (
               <Button 
                 variant="outline" 
                 size="sm"
@@ -145,7 +148,7 @@ function ProjectCard({ project, featured = false }) {
                 </svg>
                 Code
               </Button>
-            )}
+            ) : null}
             {project.video && (
               <Button 
                 variant="outline" 
@@ -170,20 +173,20 @@ function ProjectCard({ project, featured = false }) {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                Live Demo
+                {project.forSale ? "Buy Now" : "Live Demo"}
               </Button>
             )}
           </div>
 
           {/* Social Links */}
           {project.socialLinks && (
-            <div className="flex items-center gap-4 mt-5 pt-5 border-t border-[rgba(255,255,255,0.08)]">
+            <div className="flex items-center gap-4 mt-5 pt-5 border-t border-[rgba(45,42,36,0.06)]">
               {project.socialLinks.youtube && (
                 <a
                   href={project.socialLinks.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#606070] hover:text-red-500 transition-colors"
+                  className="flex items-center gap-2 text-sm text-[#9c958d] hover:text-red-600 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -196,7 +199,7 @@ function ProjectCard({ project, featured = false }) {
                   href={project.socialLinks.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#606070] hover:text-pink-500 transition-colors"
+                  className="flex items-center gap-2 text-sm text-[#9c958d] hover:text-pink-600 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -206,10 +209,11 @@ function ProjectCard({ project, featured = false }) {
               )}
             </div>
           )}
+          </div>
         </div>
 
         {/* Decorative corner glow */}
-        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-[#00f5d4]/5 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00f5d4]/10 transition-colors duration-500" />
+        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-[rgba(194,90,62,0.03)] rounded-full blur-3xl pointer-events-none group-hover:bg-[rgba(194,90,62,0.06)] transition-colors duration-500" />
       </div>
     </motion.div>
   );
@@ -226,15 +230,15 @@ export default function Projects() {
         className="mb-16"
       >
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-[2px] bg-gradient-to-r from-[#00f5d4] to-[#8338ec]" />
-          <span className="text-[#00f5d4] font-mono text-sm uppercase tracking-wider">
+          <div className="w-12 h-[2px] bg-gradient-to-r from-[#c25a3e] to-[#4a6a7a]" />
+          <span className="text-[#c25a3e] font-mono text-sm uppercase tracking-wider">
             My Work
           </span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-[#f8f8f2] mb-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-[#2d2a24] mb-4">
           Featured <span className="gradient-text">Projects</span>
         </h2>
-        <p className="text-[#a0a0b0] text-lg max-w-2xl leading-relaxed">
+        <p className="text-[#6b6560] text-lg max-w-2xl leading-relaxed">
           A selection of projects that showcase my expertise in building modern, 
           performant, and user-centered applications.
         </p>

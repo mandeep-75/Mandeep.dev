@@ -6,14 +6,14 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.06)] bg-[#0a0a0f] py-12">
+    <footer className="border-t border-[rgba(45,42,36,0.06)] bg-[#faf9f6] py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center gap-6">
           
           {/* Back to top button */}
           <motion.button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 text-[#606070] hover:text-[#00f5d4] transition-colors"
+            className="group flex items-center gap-2 text-[#9c958d] hover:text-[#c25a3e] transition-colors"
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -33,21 +33,21 @@ export default function Footer() {
           </motion.button>
 
           {/* Divider */}
-          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.1)] to-transparent" />
+          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[rgba(45,42,36,0.1)] to-transparent" />
 
           {/* Copyright */}
-          <p className="text-[#606070] text-sm">
-            © {new Date().getFullYear()} <span className="text-[#a0a0b0]">Mandeep Singh</span>. All rights reserved.
+          <p className="text-[#9c958d] text-sm">
+            © {new Date().getFullYear()} <span className="text-[#6b6560]">Mandeep Singh</span>. All rights reserved.
           </p>
 
           {/* Decorative elements */}
-          <div className="flex items-center gap-2 text-[#606070] text-xs font-mono">
-            <span className="text-[#00f5d4]">&lt;</span>
+          <div className="flex items-center gap-2 text-[#9c958d] text-xs font-mono">
+            <span className="text-[#c25a3e]">&lt;</span>
             <span>Built with</span>
-            <span className="text-[#ff006e]">React</span>
-            <span className="text-[#ffd60a]">&</span>
-            <span className="text-[#8338ec]">Vite</span>
-            <span className="text-[#00f5d4]">&gt;</span>
+            <span className="text-[#4a6a7a]">React</span>
+            <span className="text-[#d4895b]">&</span>
+            <span className="text-[#5a7a8a]">Vite</span>
+            <span className="text-[#c25a3e]">&gt;</span>
           </div>
         </div>
       </div>

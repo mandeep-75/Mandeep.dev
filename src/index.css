@@ -7,32 +7,31 @@
   --font-display: "Clash Display", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Base Colors */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #12121a;
-  --color-bg-tertiary: #1a1a24;
-  --color-bg-elevated: #22222e;
+  /* Base Colors - Warm Light Theme */
+  --color-bg-primary: #faf9f6;
+  --color-bg-secondary: #f5f3ef;
+  --color-bg-tertiary: #f0ede8;
+  --color-bg-elevated: #ffffff;
 
   /* Accent Colors */
-  --color-accent-cyan: #00f5d4;
-  --color-accent-magenta: #ff006e;
-  --color-accent-yellow: #ffd60a;
-  --color-accent-purple: #8338ec;
+  --color-accent-terracotta: #c25a3e;
+  --color-accent-slate: #4a6a7a;
+  --color-accent-amber: #d4895b;
 
   /* Text Colors */
-  --color-text-primary: #f8f8f2;
-  --color-text-secondary: #a0a0b0;
-  --color-text-tertiary: #606070;
+  --color-text-primary: #2d2a24;
+  --color-text-secondary: #6b6560;
+  --color-text-tertiary: #9c958d;
 
   /* Border Colors */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border: rgba(45, 42, 36, 0.08);
+  --color-border-hover: rgba(45, 42, 36, 0.15);
 
   /* Gradients */
-  --gradient-accent: linear-gradient(135deg, #00f5d4, #8338ec);
-  --gradient-magenta: linear-gradient(135deg, #ff006e, #8338ec);
-  --gradient-warm: linear-gradient(135deg, #ffd60a, #ff006e);
-  --gradient-cool: linear-gradient(135deg, #00f5d4, #3b82f6);
+  --gradient-accent: linear-gradient(135deg, #c25a3e, #d4895b);
+  --gradient-slate: linear-gradient(135deg, #4a6a7a, #5a7a8a);
+  --gradient-warm: linear-gradient(135deg, #d4895b, #c25a3e);
+  --gradient-cool: linear-gradient(135deg, #4a6a7a, #7a9aaa);
 }
 
 * {
@@ -61,7 +60,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-bg-elevated);
+  background: var(--color-bg-tertiary);
   border-radius: 4px;
 }
 
@@ -71,13 +70,13 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(0, 245, 212, 0.3);
+  background: rgba(194, 90, 62, 0.15);
   color: var(--color-text-primary);
 }
 
 /* Focus styles */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-cyan);
+  outline: 2px solid var(--color-accent-terracotta);
   outline-offset: 2px;
 }
 
@@ -92,16 +91,16 @@ body {
   }
 }
 
-/* Animated grid background */
+/* Subtle grid background */
 .grid-bg {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(45, 42, 36, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 42, 36, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   background-position: center center;
 }
 
-/* Noise texture overlay */
+/* Subtle paper texture overlay */
 .noise-overlay::before {
   content: '';
   position: fixed;
@@ -110,7 +109,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.012;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   z-index: 9999;
 }
@@ -123,8 +122,8 @@ body {
   background-clip: text;
 }
 
-.gradient-text-magenta {
-  background: var(--gradient-magenta);
+.gradient-text-slate {
+  background: var(--gradient-slate);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -137,28 +136,26 @@ body {
   background-clip: text;
 }
 
-/* Glass card effect */
-.glass-card {
-  background: rgba(18, 18, 26, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Card surface effect */
+.card-surface {
+  background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: 16px;
   transition: all 0.3s ease;
 }
 
-.glass-card:hover {
+.card-surface:hover {
   border-color: var(--color-border-hover);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(45, 42, 36, 0.08);
 }
 
 /* Glow effects */
-.glow-cyan {
-  box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+.glow-terracotta {
+  box-shadow: 0 0 20px rgba(194, 90, 62, 0.2);
 }
 
-.glow-magenta {
-  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+.glow-slate {
+  box-shadow: 0 0 20px rgba(74, 106, 122, 0.2);
 }
 
 /* Floating animation */

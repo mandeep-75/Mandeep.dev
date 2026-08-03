@@ -3,6 +3,7 @@ import yt_automation from "../assets/yt_automation.png"
 import coc_bot from "../assets/coc_bot.png"
 import subtitle from "../assets/subtitle.png"
 import nexus_go from "../assets/nexus_go_combined.png"
+import pos_systems from "../assets/pos_systems.png"
 export const projects = [
     {
         id: 1,
@@ -54,5 +55,14 @@ export const projects = [
         image: nexus_go,
         link: "#",
         github: "https://github.com/mandeep-75/WebViewApp"
+    },
+    {
+        id: 6,
+        title: "POS Systems",
+        description: "Powerful point-of-sale solutions for pharmacy, grocery, clothing, and restaurant businesses. Fully built and available for purchase.",
+        tags: ["React", "POS", "For Sale"],
+        image: pos_systems,
+        link: "https://products-showcase-delta.vercel.app/",
+        forSale: true,
     },
 ];

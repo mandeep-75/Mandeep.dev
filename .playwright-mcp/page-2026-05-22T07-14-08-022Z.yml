@@ -1,0 +1,188 @@
+- generic [ref=e3]:
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - paragraph [ref=e12]: // Hi, I'm Mandeep
+          - heading "I Build Digital Experiences" [level=1] [ref=e13]:
+            - generic [ref=e14]: I Build
+            - generic [ref=e15]: Digital Experiences
+          - paragraph [ref=e16]: Full-stack developer building scalable web applications and intelligent automation solutions.
+        - generic [ref=e17]:
+          - button "Start a Project" [ref=e18] [cursor=pointer]:
+            - generic [ref=e19]: Start a Project
+          - button "View Work" [ref=e21] [cursor=pointer]:
+            - generic [ref=e22]: View Work
+      - generic [ref=e25]: Scroll
+    - generic [ref=e29]:
+      - generic [ref=e30]:
+        - img "Mandeep Profile" [ref=e38]
+        - generic [ref=e40]:
+          - paragraph [ref=e41]: Based in
+          - paragraph [ref=e42]: Remote / Worldwide
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e47]: About Me
+          - heading "Turning Ideas into Reality" [level=2] [ref=e48]
+          - paragraph [ref=e50]: Full-stack developer specializing in React and Python with a passion for automation. I build clean, scalable solutions that streamline workflows and transform complex processes into efficient automated systems.
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - heading "1+" [level=3] [ref=e53]
+            - paragraph [ref=e54]: Years Building & Learning
+          - generic [ref=e55]:
+            - heading "5+" [level=3] [ref=e56]
+            - paragraph [ref=e57]: Projects Completed
+    - generic [ref=e59]:
+      - link "LinkedIn" [ref=e60] [cursor=pointer]:
+        - /url: https://www.linkedin.com/in/mandeep-singh-3433a231a/
+        - img [ref=e62]
+        - generic [ref=e64]: LinkedIn
+      - link "GitHub" [ref=e65] [cursor=pointer]:
+        - /url: https://github.com/mandeep-75
+        - img [ref=e67]
+        - generic [ref=e69]: GitHub
+      - link "Twitter" [ref=e70] [cursor=pointer]:
+        - /url: https://x.com/Dev1309Singh
+        - img [ref=e72]
+        - generic [ref=e74]: Twitter
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e79]: My Work
+        - heading "Featured Projects" [level=2] [ref=e80]
+        - paragraph [ref=e81]: A selection of projects that showcase my expertise in building modern, performant, and user-centered applications.
+      - generic [ref=e82]:
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - img "YouTube Automation" [ref=e87]
+            - generic [ref=e88]: ★ Featured
+          - generic [ref=e89]:
+            - generic [ref=e91]:
+              - heading "YouTube Automation" [level=3] [ref=e92]
+              - paragraph [ref=e93]: AI-powered pipeline that transforms raw videos into narrated YouTube Shorts with auto-upload.
+            - generic [ref=e94]:
+              - generic [ref=e95]: Python
+              - generic [ref=e96]: Ollama
+              - generic [ref=e97]: Automation
+              - generic [ref=e98]: AI
+            - button "Code" [ref=e100] [cursor=pointer]:
+              - generic [ref=e101]:
+                - img [ref=e102]
+                - text: Code
+            - link "YouTube" [ref=e106] [cursor=pointer]:
+              - /url: https://www.youtube.com/@bangb_iteeg
+              - img [ref=e107]
+              - generic [ref=e109]: YouTube
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - img "BlackLoop" [ref=e115]
+            - generic [ref=e116]: ★ Featured
+          - generic [ref=e117]:
+            - generic [ref=e119]:
+              - heading "BlackLoop" [level=3] [ref=e120]
+              - paragraph [ref=e121]: Movie browsing platform with direct torrent magnet links.
+            - generic [ref=e122]:
+              - generic [ref=e123]: React
+              - generic [ref=e124]: API
+              - generic [ref=e125]: Torrent
+            - generic [ref=e126]:
+              - button "Code" [ref=e127] [cursor=pointer]:
+                - generic [ref=e128]:
+                  - img [ref=e129]
+                  - text: Code
+              - button "Live Demo" [ref=e132] [cursor=pointer]:
+                - generic [ref=e133]:
+                  - img [ref=e134]
+                  - text: Live Demo
+      - generic [ref=e137]:
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - img "CoC Bot" [ref=e142]
+            - generic [ref=e143]: Project
+          - generic [ref=e144]:
+            - generic [ref=e146]:
+              - heading "CoC Bot" [level=3] [ref=e147]
+              - paragraph [ref=e148]: Terminal bot automating Clash of Clans attacks with ADB and image recognition.
+            - generic [ref=e149]:
+              - generic [ref=e150]: Python
+              - generic [ref=e151]: ADB
+              - generic [ref=e152]: Automation
+            - generic [ref=e153]:
+              - button "Code" [ref=e154] [cursor=pointer]:
+                - generic [ref=e155]:
+                  - img [ref=e156]
+                  - text: Code
+              - button "Demo" [ref=e159] [cursor=pointer]:
+                - generic [ref=e160]:
+                  - img [ref=e161]
+                  - text: Demo
+        - generic [ref=e166]:
+          - generic [ref=e167]:
+            - img "AutoSub Burn" [ref=e169]
+            - generic [ref=e170]: Project
+          - generic [ref=e171]:
+            - generic [ref=e173]:
+              - heading "AutoSub Burn" [level=3] [ref=e174]
+              - paragraph [ref=e175]: Video subtitling tool using Whisper for transcription and karaoke effects.
+            - generic [ref=e176]:
+              - generic [ref=e177]: Python
+              - generic [ref=e178]: Whisper
+              - generic [ref=e179]: Video
+            - generic [ref=e180]:
+              - button "Code" [ref=e181] [cursor=pointer]:
+                - generic [ref=e182]:
+                  - img [ref=e183]
+                  - text: Code
+              - button "Live Demo" [ref=e186] [cursor=pointer]:
+                - generic [ref=e187]:
+                  - img [ref=e188]
+                  - text: Live Demo
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - img "Nexus Go" [ref=e196]
+            - generic [ref=e197]: Project
+          - generic [ref=e198]:
+            - generic [ref=e200]:
+              - heading "Nexus Go" [level=3] [ref=e201]
+              - paragraph [ref=e202]: React Native app with custom WebView, tab navigation.
+            - generic [ref=e203]:
+              - generic [ref=e204]: React Native
+              - generic [ref=e205]: Expo
+              - generic [ref=e206]: Mobile
+            - button "Code" [ref=e208] [cursor=pointer]:
+              - generic [ref=e209]:
+                - img [ref=e210]
+                - text: Code
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]:
+          - generic [ref=e227]: Get in Touch
+          - heading "Let's Connect" [level=2] [ref=e229]
+        - paragraph [ref=e230]: Have a project in mind? Let's talk.
+      - generic [ref=e231]:
+        - generic [ref=e232]:
+          - textbox [ref=e233]:
+            - /placeholder: " "
+          - generic [ref=e234]: Name
+        - generic [ref=e235]:
+          - textbox [ref=e236]:
+            - /placeholder: " "
+          - generic [ref=e237]: Email
+        - generic [ref=e238]:
+          - textbox [ref=e239]:
+            - /placeholder: " "
+          - generic [ref=e240]: Message
+        - button "Send Message" [ref=e241] [cursor=pointer]:
+          - generic [ref=e242]: Send Message
+  - contentinfo [ref=e244]:
+    - generic [ref=e246]:
+      - button "Back to top" [ref=e247]:
+        - generic [ref=e248]: Back to top
+        - img [ref=e249]
+      - paragraph [ref=e252]: © 2026 Mandeep Singh. All rights reserved.
+      - generic [ref=e253]:
+        - generic [ref=e254]: <
+        - generic [ref=e255]: Built with
+        - generic [ref=e256]: React
+        - generic [ref=e257]: "&"
+        - generic [ref=e258]: Vite
+        - generic [ref=e259]: ">"

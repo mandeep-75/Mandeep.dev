@@ -1,0 +1,87 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "Powerful POS Systems" [level=1] [ref=e4]
+    - paragraph [ref=e5]: Streamline your business operations with our comprehensive point-of-sale solutions
+  - generic [ref=e7]: Explore Our Products
+  - generic [ref=e8]:
+    - link "PharmacyPOS Pharmacy Management Complete pharmacy management system with POS, inventory, and prescription tracking. Explore Features POS System Inventory Prescriptions" [ref=e9] [cursor=pointer]:
+      - /url: details.html
+      - img [ref=e11]
+      - heading "PharmacyPOS" [level=2] [ref=e13]
+      - paragraph [ref=e14]: Pharmacy Management
+      - paragraph [ref=e15]: Complete pharmacy management system with POS, inventory, and prescription tracking.
+      - generic [ref=e16]:
+        - text: Explore Features
+        - img [ref=e17]
+      - generic [ref=e19]:
+        - generic [ref=e20]: POS System
+        - generic [ref=e21]: Inventory
+        - generic [ref=e22]: Prescriptions
+    - link "GroseryPOS Grocery Management Complete grocery store management system with POS, inventory, and sales reporting. Explore Features POS System Products Analytics" [ref=e23] [cursor=pointer]:
+      - /url: grosery.html
+      - img [ref=e25]
+      - heading "GroseryPOS" [level=2] [ref=e27]
+      - paragraph [ref=e28]: Grocery Management
+      - paragraph [ref=e29]: Complete grocery store management system with POS, inventory, and sales reporting.
+      - generic [ref=e30]:
+        - text: Explore Features
+        - img [ref=e31]
+      - generic [ref=e33]:
+        - generic [ref=e34]: POS System
+        - generic [ref=e35]: Products
+        - generic [ref=e36]: Analytics
+    - link "ClothingPOS Clothing Store Management Fast, offline-capable POS for clothing stores with size-based inventory tracking. Explore Features POS System Size Tracking Offline" [ref=e37] [cursor=pointer]:
+      - /url: clothing.html
+      - img [ref=e39]
+      - heading "ClothingPOS" [level=2] [ref=e41]
+      - paragraph [ref=e42]: Clothing Store Management
+      - paragraph [ref=e43]: Fast, offline-capable POS for clothing stores with size-based inventory tracking.
+      - generic [ref=e44]:
+        - text: Explore Features
+        - img [ref=e45]
+      - generic [ref=e47]:
+        - generic [ref=e48]: POS System
+        - generic [ref=e49]: Size Tracking
+        - generic [ref=e50]: Offline
+    - link "RestPOS Restaurant Management Fast-food restaurant POS with order queue, menu variants, and real-time tracking. Explore Features POS System Order Queue Reports" [ref=e51] [cursor=pointer]:
+      - /url: restpos.html
+      - img [ref=e53]
+      - heading "RestPOS" [level=2] [ref=e55]
+      - paragraph [ref=e56]: Restaurant Management
+      - paragraph [ref=e57]: Fast-food restaurant POS with order queue, menu variants, and real-time tracking.
+      - generic [ref=e58]:
+        - text: Explore Features
+        - img [ref=e59]
+      - generic [ref=e61]:
+        - generic [ref=e62]: POS System
+        - generic [ref=e63]: Order Queue
+        - generic [ref=e64]: Reports
+  - contentinfo [ref=e65]:
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - heading "Powerful POS Systems" [level=3] [ref=e68]
+        - paragraph [ref=e69]: Streamline your business operations with our comprehensive point-of-sale solutions.
+      - generic [ref=e70]:
+        - heading "Products" [level=4] [ref=e71]
+        - link "PharmacyPOS" [ref=e72] [cursor=pointer]:
+          - /url: details.html
+          - text: PharmacyPOS
+        - link "GroseryPOS" [ref=e74] [cursor=pointer]:
+          - /url: grosery.html
+          - text: GroseryPOS
+        - link "ClothingPOS" [ref=e76] [cursor=pointer]:
+          - /url: clothing.html
+          - text: ClothingPOS
+        - link "RestPOS" [ref=e78] [cursor=pointer]:
+          - /url: restpos.html
+          - text: RestPOS
+      - generic [ref=e80]:
+        - heading "Connect" [level=4] [ref=e81]
+        - link "Contact Us" [ref=e82] [cursor=pointer]:
+          - /url: mailto:mandeep.dev1309@gmail.com
+        - link "Custom Solutions" [ref=e83] [cursor=pointer]:
+          - /url: mailto:mandeep.dev1309@gmail.com?subject=Custom%20Solution%20Inquiry
+    - generic [ref=e84]:
+      - generic [ref=e85]: © 2026 Powerful POS Systems. All rights reserved.
+      - link "mandeep.dev1309@gmail.com" [ref=e86] [cursor=pointer]:
+        - /url: mailto:mandeep.dev1309@gmail.com
