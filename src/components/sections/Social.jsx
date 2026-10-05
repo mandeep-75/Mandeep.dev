@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Tilt from "../three/Tilt";
+import { useReducedMotion } from "../../lib/motion";
 
 const socials = [
   { 
@@ -34,42 +36,58 @@ const socials = [
 ];
 
 export default function Socials() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <section className="py-10 flex justify-center">
-      <motion.div 
+    <section className="depth-context py-10 flex justify-center">
+      <motion.div
         className="flex gap-4 md:gap-6"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: reducedMotion ? 0 : 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
         {socials.map((social, index) => (
-          <motion.a
+          <motion.div
             key={social.name}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`relative group flex items-center gap-3 px-6 py-4 bg-white border border-[rgba(45,42,36,0.08)] rounded-2xl text-[#6b6560] font-medium transition-all duration-300 ${social.color}`}
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.4 }}
+            variants={{
+              hidden: { opacity: 0, y: reducedMotion ? 0 : 40, z: reducedMotion ? 0 : -160, rotateX: reducedMotion ? 0 : 14 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                z: 0,
+                rotateX: 0,
+                transition: { duration: 0.6, delay: reducedMotion ? 0 : index * 0.1 },
+              },
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.6 }}
           >
-            {/* Icon */}
-            <span className="transition-transform duration-300 group-hover:scale-110">
-              {social.icon}
-            </span>
-            
-            {/* Label - visible on larger screens */}
-            <span className="hidden md:inline text-sm tracking-wide">
-              {social.name}
-            </span>
-            
-            {/* Glow effect on hover */}
-            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </motion.a>
+            {/* The tilt lives on a wrapper so the anchor underneath keeps a flat
+                hit area and the whole link still activates from the keyboard. */}
+            <Tilt max={7} perspective={620} lift={26}>
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group relative flex items-center gap-3 rounded-2xl border border-[rgba(45,42,36,0.08)] bg-white px-6 py-4 font-medium text-[#6b6560] transition-[color,border-color] duration-300 ${social.color}`}
+              >
+                {/* Icon */}
+                <span className="transition-transform duration-300 group-hover:scale-110">
+                  {social.icon}
+                </span>
+
+                {/* Label - visible on larger screens */}
+                <span className="hidden text-sm tracking-wide md:inline">
+                  {social.name}
+                </span>
+
+                {/* Glow effect on hover */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </a>
+            </Tilt>
+          </motion.div>
         ))}
       </motion.div>
     </section>

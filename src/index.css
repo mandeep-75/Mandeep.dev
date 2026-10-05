@@ -228,3 +228,155 @@ body {
 .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
 .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
 .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Panning through the two tall screenshots that read better moving than still.
+   Lives here rather than in a per-card <style> block so the keyframes are
+   declared once instead of once per project card. */
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.animate-scroll-up {
+  animation: scrollUp 20s linear infinite;
+}
+
+/* ==========================================================================
+   3D DEPTH SYSTEM
+   The page lives inside one perspective. Depth is read three ways at once:
+   translateZ shrinks a plane, parallax makes nearer planes travel further than
+   the ones behind them, and stacking order puts them behind the content.
+   Nothing here paints over the page — it is a backdrop the content sits in.
+   ========================================================================== */
+
+/* The WebGL backdrop: a fixed, full-viewport canvas behind all content.
+
+   No `perspective` here — the camera owns the projection, and adding a CSS
+   perspective would compose with it and skew the whole scene. `pointer-events:
+   none` is load-bearing: the canvas covers the entire viewport, so without it
+   every hover and click on the page below would be swallowed. `z-index: 0`
+   matches `.depth-stage` so the two backdrops are interchangeable and the
+   fallback swaps in without moving anything. */
+.webgl-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.webgl-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Establishes the 3D space that this element's children animate within.
+   Perspective never applies to the element itself, only to its children. */
+.depth-context {
+  perspective: 1400px;
+}
+.depth-context-far {
+  perspective: 2200px;
+}
+
+.depth-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1200px;
+  perspective-origin: 50% 40%;
+}
+
+/* Oversized so parallax translation can never expose an edge. */
+.depth-plane {
+  position: absolute;
+  will-change: transform;
+}
+
+/* The receding ground plane: the single strongest cue that this is a space
+   rather than a flat page. Rotated about its top edge so the far edge
+   collapses toward a horizon, then masked so the convergence zone fades in
+   instead of ending on a hard line. */
+.depth-floor {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 52vh;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 420px;
+  perspective-origin: 50% 0%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.3) 14%, #000 48%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.3) 14%, #000 48%);
+}
+
+.depth-floor-rotate {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(74deg);
+  transform-origin: 50% 0%;
+}
+
+/* Deep enough that the scroll travel below can never pull its edge into view. */
+.depth-floor-pan {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 320%;
+  opacity: 0.55;
+}
+
+/* 3D type: each word pivots around a point 140px behind itself, so it swings
+   through space on an arc instead of sliding in flat. `white-space: pre` keeps
+   the trailing space between words from collapsing, which would otherwise run
+   the display type together. */
+.word3d {
+  display: inline-block;
+  white-space: pre;
+  transform-origin: 50% 50% -140px;
+}
+
+/* Warm sheen. Multiply blending keeps it visible on a light surface, where a
+   white highlight would simply disappear. */
+.depth-glare {
+  mix-blend-mode: multiply;
+}
+
+/* The field you are typing in lifts off the form plane. The <form> carries the
+   perspective — without it, a translateZ on the input does nothing at all. */
+.field-lift {
+  transition-property: transform, border-color;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+}
+
+.field-lift:focus-within {
+  transform: translateZ(16px);
+}
+
+/* Reduced motion: release the compositor hints and neutralise the pivot that
+   drives the arc. Every plane is already held at rest in JS, so the backdrop
+   stays composed and static — just without the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .depth-plane,
+  .depth-floor-pan {
+    will-change: auto;
+  }
+
+  .word3d {
+    transform-origin: 50% 50%;
+  }
+
+  .depth-glare {
+    display: none;
+  }
+
+  .field-lift:focus-within {
+    transform: none;
+  }
+}

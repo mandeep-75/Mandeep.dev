@@ -2,10 +2,19 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import Button from "../ui/Button";
+import Tilt from "../three/Tilt";
+import Word3D from "../ui/Word3D";
+import {
+  DURATION,
+  EASE_OUT,
+  WORD_PERSPECTIVE,
+  useReducedMotion,
+} from "../../lib/motion";
 
 export default function Contact() {
 
     const [status, setStatus] = useState("idle");
+    const reducedMotion = useReducedMotion();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,7 +46,14 @@ export default function Contact() {
             <div className="max-w-5xl mx-auto">
                 
                 {/* Decorative background elements */}
-                <div className="relative bg-white border border-[rgba(45,42,36,0.08)] rounded-3xl p-8 md:p-12 overflow-hidden">
+                <Tilt
+                    className="relative rounded-3xl"
+                    max={3.5}
+                    perspective={1400}
+                    lift={22}
+                    glare
+                >
+                    <div className="relative overflow-hidden border border-[rgba(45,42,36,0.08)] rounded-3xl bg-white p-8 md:p-12">
                     {/* Corner decorations */}
                     <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-[rgba(194,90,62,0.2)] rounded-tl-3xl" />
                     <div className="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-[rgba(74,106,122,0.2)] rounded-tr-3xl" />
@@ -51,7 +67,7 @@ export default function Contact() {
                     <div className="max-w-xl mx-auto relative z-10">
                         <div className="text-center mb-10">
                             <motion.div
-                                initial={{ opacity: 0, y: -20 }}
+                                initial={{ opacity: 0, y: reducedMotion ? 0 : -20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                             >
@@ -62,14 +78,22 @@ export default function Contact() {
                                     </span>
                                     <div className="w-10 h-[2px] bg-gradient-to-l from-transparent to-[#c25a3e]" />
                                 </div>
-                                <h2 className="text-4xl font-bold text-[#2d2a24] mb-4">
-                                    Let's <span className="gradient-text">Connect</span>
+                                <h2 className="mb-4 text-4xl font-bold text-[#2d2a24]">
+                                    <Word3D as="span" text="Let's" style={WORD_PERSPECTIVE} className="text-[#2d2a24]" />{" "}
+                                    <Word3D
+                                        as="span"
+                                        text="Connect"
+                                        style={WORD_PERSPECTIVE}
+                                        className="gradient-text"
+                                        delay={0.12}
+                                        depth={260}
+                                    />
                                 </h2>
                             </motion.div>
 
                             <motion.p 
                                 className="text-[#6b6560]"
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: reducedMotion ? 0 : 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
@@ -81,10 +105,11 @@ export default function Contact() {
                         <motion.form 
                             onSubmit={handleSubmit} 
                             className="space-y-5"
-                            initial={{ opacity: 0, x: 20 }}
+                            style={{ perspective: 900 }}
+                            initial={{ opacity: 0, x: reducedMotion ? 0 : 20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
+                            transition={{ duration: DURATION.reveal, ease: EASE_OUT, delay: 0.3 }}
                         >
 
                             {/* NAME */}
@@ -94,7 +119,7 @@ export default function Contact() {
                                     name="name"
                                     required
                                     placeholder=" "
-                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors"
+                                    className="peer field-lift w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none"
                                 />
                                 <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Name
@@ -108,7 +133,7 @@ export default function Contact() {
                                     name="email"
                                     required
                                     placeholder=" "
-                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors"
+                                    className="peer field-lift w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none"
                                 />
                                 <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Email
@@ -122,7 +147,7 @@ export default function Contact() {
                                     required
                                     rows="4"
                                     placeholder=" "
-                                    className="peer w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none transition-colors resize-none"
+                                    className="peer field-lift w-full bg-[#f5f3ef] border border-[rgba(45,42,36,0.08)] rounded-xl px-4 py-4 text-[#2d2a24] placeholder-transparent focus:border-[#c25a3e] focus:border-opacity-50 outline-none resize-none"
                                 />
                                 <label className="absolute left-4 top-4 text-[#9c958d] text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#c25a3e] peer-focus:bg-white peer-focus:px-1 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs bg-[#f5f3ef] px-1">
                                     Message
@@ -142,7 +167,8 @@ export default function Contact() {
                             </Button>
                         </motion.form>
                     </div>
-                </div>
+                    </div>
+                </Tilt>
             </div>
         </section>
     );

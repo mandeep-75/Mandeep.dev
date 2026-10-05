@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local tooling config and its dependencies — 61 MB of node_modules, not
+# project source. The skills under .opencode/skills are local guidance too.
+.opencode
+
+# The source location scene. public/models/location.glb is the built asset the
+# site actually loads and is committed; this is the unpacked FBX and its
+# textures, kept only for re-conversion with fbx2gltf.
+an-overgrown-japanese-style-location/
