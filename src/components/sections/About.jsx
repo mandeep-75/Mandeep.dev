@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import Card from "../ui/Card";
-import Word3D from "../ui/Word3D";
+import { motion } from 'framer-motion';
+import SideColumn from '../ui/SideColumn';
+import Word3D from '../ui/Word3D';
 import {
   DURATION,
   EASE_OUT,
@@ -8,7 +8,7 @@ import {
   eyebrowFlatVariants,
   eyebrowVariants,
   useReducedMotion,
-} from "../../lib/motion";
+} from '../../lib/motion';
 
 /* Cards rise out of depth as they arrive. Both objects live at module scope so
    the reference is stable across renders — a fresh variants object every render
@@ -34,8 +34,11 @@ export default function About() {
   const reducedMotion = useReducedMotion();
 
   return (
-    <section id="about" className="px-4 py-32 max-w-5xl mx-auto">
-      <div className="max-w-3xl mx-auto">
+    /* Block 2 of the zigzag: after the hero's left track, About moves to the
+       right track and starts 96px lower, so the eye crosses the centre band
+       on the way down instead of reading two parallel columns. */
+    <section id="about" className="py-32">
+      <SideColumn side="right" stagger>
         <motion.div
           variants={reducedMotion ? eyebrowFlatVariants : eyebrowVariants}
           initial="hidden"
@@ -43,18 +46,18 @@ export default function About() {
           viewport={{ once: true }}
           className="mb-6 flex items-center gap-3"
         >
-          <div className="w-12 h-[2px] bg-gradient-to-r from-[#c25a3e] to-transparent" />
-          <span className="font-mono text-sm uppercase tracking-wider text-[#c25a3e]">
+          <div className="w-12 h-[2px] bg-gradient-to-r from-[#ffd166] to-transparent" />
+          <span className="font-mono text-sm uppercase tracking-wider text-[#ffd166]">
             About Me
           </span>
         </motion.div>
 
-        <h2 className="mb-6 text-4xl font-bold leading-tight text-[#2d2a24] md:text-5xl">
+        <h2 className="mb-6 text-4xl font-bold leading-tight text-[#fdf1e8] md:text-5xl">
           <Word3D
             as="span"
             text="Turning Ideas into"
             style={WORD_PERSPECTIVE}
-            className="text-[#2d2a24]"
+            className="text-[#fdf1e8]"
             delay={0.05}
           />{" "}
           <Word3D
@@ -68,7 +71,7 @@ export default function About() {
         </h2>
 
         <motion.div
-          className="mb-12 space-y-4 text-lg text-[#6b6560]"
+          className="mb-12 space-y-4 text-lg text-[#f3d9cf]"
           initial={{ opacity: 0, y: reducedMotion ? 0 : 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
@@ -84,7 +87,7 @@ export default function About() {
         {/* `depth-context` sits here rather than on the section: perspective only
             reaches direct children, and these cards are two levels down. */}
         <motion.div
-          className="depth-context mx-auto grid max-w-md grid-cols-2 gap-4"
+          className="depth-context grid max-w-md grid-cols-2 gap-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -98,27 +101,30 @@ export default function About() {
             },
           }}
         >
+          {/* No card surface: the stats sit straight on the page like the hero
+              does — the amber-cream gradient carries the number and the cream
+              label carries the caption, against 7:1 blood red. */}
           <motion.div
             variants={reducedMotion ? CARD_REVEAL_FLAT : CARD_REVEAL}
             className="depth-context h-full"
           >
-            <Card className="p-6 text-center bg-white border-[rgba(45,42,36,0.06)] h-full">
+            <div className="h-full p-6 text-center">
               <h3 className="gradient-text mb-1 text-3xl font-bold md:text-4xl">2+</h3>
-              <p className="text-sm text-[#9c958d]">Years Building &amp; Learning</p>
-            </Card>
+              <p className="text-sm text-[#f3d9cf]">Years Building &amp; Learning</p>
+            </div>
           </motion.div>
 
           <motion.div
             variants={reducedMotion ? CARD_REVEAL_FLAT : CARD_REVEAL}
             className="depth-context h-full"
           >
-            <Card className="p-6 text-center bg-white border-[rgba(45,42,36,0.06)] h-full">
-              <h3 className="gradient-text-slate mb-1 text-3xl font-bold md:text-4xl">6+</h3>
-              <p className="text-sm text-[#9c958d]">Projects Completed</p>
-            </Card>
+            <div className="h-full p-6 text-center">
+              <h3 className="gradient-text mb-1 text-3xl font-bold md:text-4xl">6+</h3>
+              <p className="text-sm text-[#f3d9cf]">Projects Completed</p>
+            </div>
           </motion.div>
         </motion.div>
-      </div>
+      </SideColumn>
     </section>
   );
 }

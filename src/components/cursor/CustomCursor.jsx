@@ -7,7 +7,7 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth spring animation with different configs
+  // One spring config shared by both axes, so the trail stays symmetrical.
   const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
@@ -63,7 +63,7 @@ export default function CustomCursor() {
         style={{ x: x, y: y, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
-          className="w-2 h-2 bg-[#c25a3e] rounded-full"
+          className="w-2 h-2 bg-[#ffd166] rounded-full"
           animate={{
             scale: isHovering ? 2 : 1,
           }}
@@ -80,8 +80,8 @@ export default function CustomCursor() {
         <motion.div
           className={`rounded-full border-2 transition-colors duration-300 ${
             isHovering 
-              ? 'border-[#4a6a7a]' 
-              : 'border-[#c25a3e]/30'
+              ? 'border-[#fdf1e8]' 
+              : 'border-[#ffd166]/50'
           }`}
           animate={{
             width: isHovering ? 60 : 40,
@@ -98,7 +98,7 @@ export default function CustomCursor() {
         style={{ x: x, y: y, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
-          className="bg-gradient-to-br from-[#c25a3e]/8 to-[#4a6a7a]/8 rounded-full blur-[60px]"
+          className="bg-gradient-to-br from-[rgba(255,209,102,0.16)] to-transparent rounded-full blur-[60px]"
           animate={{
             width: isHovering ? 300 : 200,
             height: isHovering ? 300 : 200,

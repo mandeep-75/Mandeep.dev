@@ -7,8 +7,11 @@
   --font-display: "Clash Display", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Base Colors - Warm Light Theme */
-  --color-bg-primary: #faf9f6;
+  /* Base Colors - blood red page.
+     Deep, dark red; cream ink on top of it (primary 7.1:1, secondary 6.3:1).
+     Card surfaces stay the original light neutrals so forms, pills and cards
+     keep their dark ink — a red input on a red page would be unusable. */
+  --color-bg-primary: #a50f18;
   --color-bg-secondary: #f5f3ef;
   --color-bg-tertiary: #f0ede8;
   --color-bg-elevated: #ffffff;
@@ -18,17 +21,18 @@
   --color-accent-slate: #4a6a7a;
   --color-accent-amber: #d4895b;
 
-  /* Text Colors */
-  --color-text-primary: #2d2a24;
-  --color-text-secondary: #6b6560;
-  --color-text-tertiary: #9c958d;
+  /* Text Colors - cream ink on blood red. */
+  --color-text-primary: #fdf1e8;
+  --color-text-secondary: #f3d9cf;
+  --color-text-tertiary: rgba(253, 241, 232, 0.85);
 
   /* Border Colors */
-  --color-border: rgba(45, 42, 36, 0.08);
-  --color-border-hover: rgba(45, 42, 36, 0.15);
+  --color-border: rgba(253, 241, 232, 0.18);
+  --color-border-hover: rgba(253, 241, 232, 0.35);
 
-  /* Gradients */
-  --gradient-accent: linear-gradient(135deg, #c25a3e, #d4895b);
+  /* Gradients - amber into cream reads as heat on the red page; the slate and
+     cool ramps are unchanged for the few places they still sit on light cards. */
+  --gradient-accent: linear-gradient(135deg, #ffd166, #fdf1e8 55%, #ffd166);
   --gradient-slate: linear-gradient(135deg, #4a6a7a, #5a7a8a);
   --gradient-warm: linear-gradient(135deg, #d4895b, #c25a3e);
   --gradient-cool: linear-gradient(135deg, #4a6a7a, #7a9aaa);
@@ -38,9 +42,9 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* No `scroll-behavior` on html: all in-page travel runs through
+   lib/smoothScroll.js, which owns the speed and would otherwise fight the
+   browser's own smoothing. */
 
 body {
   background-color: var(--color-bg-primary);
@@ -50,34 +54,39 @@ body {
   line-height: 1.6;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar — a darkened red rail with a cream thumb, so it reads as
+   part of the page rather than a light strip cut into it. */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
+  background: rgba(0, 0, 0, 0.18);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-bg-tertiary);
+  background: rgba(253, 241, 232, 0.55);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-tertiary);
+  background: rgba(253, 241, 232, 0.85);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(194, 90, 62, 0.15);
+  background: rgba(255, 209, 102, 0.35);
   color: var(--color-text-primary);
 }
 
-/* Focus styles */
+/* Focus styles.
+   Two rings, on purpose: the amber outline carries the contrast against the
+   red page (4.4:1) and the dark halo carries it against the white cards
+   (13:1) — either ring alone would disappear on one of the two surfaces. */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-terracotta);
+  outline: 2px solid #ffd166;
   outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(28, 25, 23, 0.8);
 }
 
 /* Reduced motion */
@@ -91,11 +100,11 @@ body {
   }
 }
 
-/* Subtle grid background */
+/* Subtle grid background — light hairlines so it reads on the red page. */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(45, 42, 36, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(45, 42, 36, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(253, 241, 232, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253, 241, 232, 0.07) 1px, transparent 1px);
   background-size: 60px 60px;
   background-position: center center;
 }
@@ -122,124 +131,9 @@ body {
   background-clip: text;
 }
 
-.gradient-text-slate {
-  background: var(--gradient-slate);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-warm {
-  background: var(--gradient-warm);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Card surface effect */
-.card-surface {
-  background: #ffffff;
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
-  transition: all 0.3s ease;
-}
-
-.card-surface:hover {
-  border-color: var(--color-border-hover);
-  box-shadow: 0 8px 32px rgba(45, 42, 36, 0.08);
-}
-
-/* Glow effects */
-.glow-terracotta {
-  box-shadow: 0 0 20px rgba(194, 90, 62, 0.2);
-}
-
-.glow-slate {
-  box-shadow: 0 0 20px rgba(74, 106, 122, 0.2);
-}
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-}
-
-@keyframes float-reverse {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(20px) rotate(-5deg);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-reverse {
-  animation: float-reverse 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
-}
-
-/* Slide up animation */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out forwards;
-}
-
-/* Stagger children animations */
-.stagger-children > * {
-  opacity: 0;
-  animation: slideUp 0.5s ease-out forwards;
-}
-
-.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
-.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
-.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
-.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
-.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
-.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
-
-/* Panning through the two tall screenshots that read better moving than still.
-   Lives here rather than in a per-card <style> block so the keyframes are
-   declared once instead of once per project card. */
-@keyframes scrollUp {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
-}
-
-.animate-scroll-up {
-  animation: scrollUp 20s linear infinite;
-}
+/* The two tall screenshots used to be panned here (`.animate-scroll-up`);
+   they are static `object-cover` crops in Projects.jsx now, so the keyframes
+   went with the last reference. */
 
 /* ==========================================================================
    3D DEPTH SYSTEM
@@ -275,9 +169,6 @@ body {
    Perspective never applies to the element itself, only to its children. */
 .depth-context {
   perspective: 1400px;
-}
-.depth-context-far {
-  perspective: 2200px;
 }
 
 .depth-stage {
@@ -341,22 +232,10 @@ body {
   transform-origin: 50% 50% -140px;
 }
 
-/* Warm sheen. Multiply blending keeps it visible on a light surface, where a
-   white highlight would simply disappear. */
+/* Warm sheen. Multiply blending keeps the sheen graded against whatever sits
+   beneath it rather than washing out as a flat overlay. */
 .depth-glare {
   mix-blend-mode: multiply;
-}
-
-/* The field you are typing in lifts off the form plane. The <form> carries the
-   perspective — without it, a translateZ on the input does nothing at all. */
-.field-lift {
-  transition-property: transform, border-color;
-  transition-duration: 0.3s;
-  transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
-}
-
-.field-lift:focus-within {
-  transform: translateZ(16px);
 }
 
 /* Reduced motion: release the compositor hints and neutralise the pivot that
@@ -374,9 +253,5 @@ body {
 
   .depth-glare {
     display: none;
-  }
-
-  .field-lift:focus-within {
-    transform: none;
   }
 }

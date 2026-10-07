@@ -10,9 +10,6 @@ import { useCallback, useSyncExternalStore } from 'react';
 /** Entrances and reveals. Fast out of the gate, long settle. */
 export const EASE_OUT = [0.22, 1, 0.36, 1];
 
-/** Scrubbed and mirrored motion, where both directions must feel equal. */
-export const EASE_SMOOTH = [0.65, 0.05, 0.36, 1];
-
 export const DURATION = {
   micro: 0.25,
   reveal: 0.55,
@@ -37,7 +34,7 @@ export const WORD_PERSPECTIVE = { perspective: 1100 };
    motion visitor never gets a frame of the moving version before it settles.
    ========================================================================== */
 
-export function useMediaQuery(query) {
+function useMediaQuery(query) {
   const subscribe = useCallback(
     (onChange) => {
       const mql = window.matchMedia(query);

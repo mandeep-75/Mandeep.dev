@@ -140,9 +140,9 @@ export default function Tilt({
 
   const glareX = useTransform(springX, (value) => `${(value * 100).toFixed(2)}%`);
   const glareY = useTransform(springY, (value) => `${(value * 100).toFixed(2)}%`);
-  // Warm sheen rather than a white highlight — on a #ffffff surface a white
-  // glare renders as nothing at all. Multiply blending (see `.depth-glare`)
-  // keeps it reading as light catching the surface.
+  // Warm sheen rather than a white highlight, blended with multiply (see
+  // `.depth-glare`) so it grades against the surface beneath instead of
+  // washing over it as a flat overlay.
   const glareBackground = useMotionTemplate`radial-gradient(340px circle at ${glareX} ${glareY}, rgba(194, 90, 62, 0.14), transparent 68%)`;
 
   return (

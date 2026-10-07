@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Button from '../ui/Button';
-import FloatingChip from '../three/FloatingChip';
 import {
   DURATION,
   EASE_OUT,
@@ -9,6 +8,7 @@ import {
   eyebrowVariants,
   useReducedMotion,
 } from '../../lib/motion';
+import { scrollToSection } from '../../lib/smoothScroll';
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -27,53 +27,56 @@ export default function Hero() {
   const panelZ = useTransform(scrollYProgress, [0, 1], [0, -340]);
   const panelY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
+  // Both buttons ride the shared scroll engine, so a jump to another section
+  // carries the same weight as a wheel flick instead of the browser's own
+  // smooth scroll (and is instant under prefers-reduced-motion).
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    scrollToSection('contact');
   };
 
   const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    scrollToSection('projects');
   };
 
   return (
+    /* No `items-center` on this flex column on purpose: the panel pins to the
+       left track at lg with `lg:ml-0 lg:mr-auto`, and auto margins are only
+       reliably the centreing mechanism when they are not competing with
+       `align-items`. Below lg, `mx-auto` centres the panel exactly as before. */
     <section
       ref={heroRef}
-      className="depth-context relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-16"
+      className="depth-context relative flex min-h-svh flex-col justify-center overflow-hidden px-5 pt-16 sm:px-8 lg:px-10 xl:px-16"
     >
-      {/* Motifs parked at four different depths. Because the section owns a
-          perspective, the nearer ones render larger and drift further — the
-          parallax difference is what sells the space. */}
-      <FloatingChip shape="square" depth={-210} drift={9} className="top-20 left-[10%] h-4 w-4 hidden sm:block" />
-      <FloatingChip shape="circle" depth={-95} drift={15} className="top-32 right-[15%] h-3 w-3 hidden sm:block" />
-      <FloatingChip shape="bar" depth={-150} drift={8} className="bottom-40 left-[20%] h-2 w-2 hidden md:block" />
-      <FloatingChip
-        shape="ring"
-        depth={-45}
-        drift={19}
-        reverse
-        className="bottom-32 right-[10%] h-5 w-5 hidden sm:block"
-      />
-
+      {/* The floating background motifs (FloatingChip) were removed here: the
+          WebGL model is the backdrop now, and they read as debris beside it. */}
+      {/* The hero introduces the page's side-alignment language: it sits on
+          the left track — the same 36% measure every other block uses, so the
+          centre band rule holds here too. One thing cannot obey it: the
+          display line "Digital Experiences" is ~506px at text-8xl and the
+          track is 472px at 1440, so that one line runs ~34px past the band
+          edge. Nothing clips it — the section's `overflow-hidden` only bites
+          at the viewport edge, far to the right — and shrinking it would mean
+          changing a type size, which is out of scope. */}
       <motion.div
-        className="relative z-10 mx-auto w-full max-w-4xl space-y-8"
+        className="relative z-10 mx-auto w-full max-w-2xl space-y-8 lg:ml-0 lg:mr-auto lg:w-[36%] lg:max-w-[36rem]"
         style={
           reducedMotion
             ? undefined
             : { rotateX: panelRotateX, z: panelZ, y: panelY }
         }
       >
-        <div className="space-y-8 text-center">
+        <div className="space-y-8 text-left">
           <motion.div
             variants={reducedMotion ? eyebrowFlatVariants : eyebrowVariants}
             initial="hidden"
             animate="visible"
-            className="mb-6 flex items-center justify-center gap-3"
+            className="mb-6 flex items-center justify-start gap-3"
           >
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#c25a3e]" />
-            <span className="font-mono text-sm uppercase tracking-widest text-[#c25a3e]">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#ffd166]" />
+            <span className="font-mono text-sm uppercase tracking-widest text-[#ffd166]">
               {'// Hi, I’m Mandeep'}
             </span>
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#c25a3e]" />
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#ffd166]" />
           </motion.div>
 
           {/* The headline reveals as ONE rigid unit rather than word by word.
@@ -87,26 +90,29 @@ export default function Hero() {
               paints on this element while its transformed children are
               composited separately, so the fill drifts off the glyphs.
 
-              One transform on one untransformed element removes every one of
-              those failure modes by construction — the words cannot separate,
-              because they are not individually transformed. It also means the
-              line only ever animates opacity and y, both of which are
-              compositor-only and cannot trigger layout, so the eyebrow, the
-              paragraph and the buttons below never get pushed around. */}
-          <h1 className="mb-6 text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl">
-            <span className="block text-[#2d2a24]">I Build</span>
-            <motion.span
-              className="gradient-text block py-3"
-              initial={reducedMotion ? false : { opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: DURATION.scene, ease: EASE_OUT, delay: 0.3 }}
-            >
+              One transform on one element removes every one of those failure
+              modes by construction — the words cannot separate, because they
+              are not individually transformed. The transform lives on the h1
+              itself, so "I Build" is part of the reveal instead of sitting at
+              full strength on frame one while its sibling staggers in. The
+              gradient span carries no transform of its own, so the
+              background-clip fill stays glued to the glyphs. Opacity and y are
+              both compositor-only, so the eyebrow, the paragraph and the
+              buttons below never get pushed around. */}
+          <motion.h1
+            className="mb-6 text-5xl font-bold leading-[1.1] tracking-tight md:text-7xl lg:text-8xl"
+            initial={reducedMotion ? false : { opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION.scene, ease: EASE_OUT, delay: 0.3 }}
+          >
+            <span className="block text-[#fdf1e8]">I Build</span>
+            <span className="gradient-text block py-3">
               Digital Experiences
-            </motion.span>
-          </h1>
+            </span>
+          </motion.h1>
 
           <motion.p
-            className="mx-auto max-w-xl text-lg text-[#6b6560] md:text-xl"
+            className="max-w-xl text-lg text-[#f3d9cf] md:text-xl"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: DURATION.reveal, ease: EASE_OUT, delay: 0.6 }}
@@ -116,8 +122,11 @@ export default function Hero() {
           </motion.p>
         </div>
 
+        {/* `flex-wrap` because two min-w-[180px] buttons plus a gap is 376px
+            and the track is 340px at 1024 — without it the row would spill
+            into the centre band instead of stacking. */}
         <motion.div
-          className="flex flex-col items-center justify-center gap-3 pb-16 sm:flex-row sm:gap-4 md:pb-0"
+          className="flex flex-col flex-wrap items-start justify-start gap-3 pb-16 sm:flex-row sm:gap-4 md:pb-0"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DURATION.reveal, ease: EASE_OUT, delay: 0.72 }}
@@ -129,33 +138,6 @@ export default function Hero() {
             View Work
           </Button>
         </motion.div>
-      </motion.div>
-
-      {/* Sits outside the tilting panel so it stays put while the hero
-          recedes — a fixed point of reference for the scroll.
-
-          `x` is handed to framer rather than left as a Tailwind
-          `-translate-x-1/2` class: framer writes its own `transform` onto this
-          element for the `y` keyframes, which silently discards the class's
-          transform and knocked the indicator off-centre. Both values now
-          compose in one transform, and the loop is gated so a reduced-motion
-          visitor gets a static marker instead of a permanently moving one. */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 flex flex-col items-center gap-2 md:bottom-10 md:gap-3"
-        style={{ x: '-50%' }}
-        animate={reducedMotion ? undefined : { y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <span className="hidden font-mono text-xs uppercase tracking-widest text-[#9c958d] md:block">
-          Scroll
-        </span>
-        <div className="flex h-8 w-5 justify-center rounded-full border border-[#9c958d] p-1">
-          <motion.div
-            className="h-2 w-1 rounded-full bg-[#c25a3e]"
-            animate={reducedMotion ? undefined : { y: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
       </motion.div>
     </section>
   );

@@ -14,6 +14,7 @@ const TILT_SPRING = { stiffness: 220, damping: 20, mass: 0.5 };
 export default function Button({
   children,
   onClick,
+  href,
   variant = "primary",
   size = "md",
   className = "",
@@ -21,12 +22,14 @@ export default function Button({
   ...props
 }) {
   const variants = {
+    // The primary is a cream slab with red type: on a red page a red-on-red
+    // button would vanish.
     primary: `
-      bg-gradient-to-r from-[#c25a3e] to-[#d4895b]
-      text-white
+      bg-[#fdf1e8]
+      text-[#a50f18]
       font-semibold
-      shadow-[0_4px_16px_rgba(194,90,62,0.25)]
-      hover:shadow-[0_6px_24px_rgba(194,90,62,0.35)]
+      shadow-[0_4px_16px_rgba(0,0,0,0.22)]
+      hover:shadow-[0_6px_24px_rgba(0,0,0,0.3)]
       border border-transparent
     `,
     secondary: `
@@ -38,17 +41,17 @@ export default function Button({
     `,
     outline: `
       bg-transparent
-      text-[#c25a3e]
-      border border-[rgba(194,90,62,0.4)]
-      hover:bg-[rgba(194,90,62,0.06)]
-      hover:border-[#c25a3e]
+      text-[#fdf1e8]
+      border border-[rgba(253,241,232,0.5)]
+      hover:bg-[rgba(253,241,232,0.1)]
+      hover:border-[#fdf1e8]
     `,
     ghost: `
       bg-transparent
-      text-[#6b6560]
+      text-[#f3d9cf]
       border border-transparent
-      hover:text-[#2d2a24]
-      hover:bg-[#f5f3ef]
+      hover:text-[#fdf1e8]
+      hover:bg-[rgba(253,241,232,0.1)]
     `
   };
 
@@ -111,12 +114,14 @@ export default function Button({
     ? {}
     : { scale: 1.02, y: -2 };
 
-  return (
-    <motion.button
-      ref={nodeRef}
-      onClick={onClick}
-      disabled={disabled}
-      className={`
+  /* One className, one style, one set of pointer handlers — the two render
+     paths differ only in their tag. With an href the control is navigation
+     and renders a real anchor: the browser handles the target itself (which
+     `window.open` calls do not reliably do), and middle-click, right-click
+     "copy link" and keyboard activation keep their native meaning. */
+  const shared = {
+    ref: nodeRef,
+    className: `
         relative overflow-hidden
         rounded-xl
         font-medium tracking-wide
@@ -125,21 +130,23 @@ export default function Button({
         select-none
         ${variants[variant]}
         ${sizes[size]}
-        ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}
+        ${disabled && !href ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}
         ${className}
-      `}
-      style={{
-        transformPerspective: 480,
-        rotateX: interactive ? rotateX : 0,
-        rotateY: interactive ? rotateY : 0,
-      }}
-      onPointerEnter={interactive ? handlePointerEnter : undefined}
-      onPointerMove={interactive ? track : undefined}
-      onPointerLeave={interactive ? handlePointerLeave : undefined}
-      whileHover={hoverProps}
-      whileTap={disabled || reducedMotion ? undefined : { scale: 0.98 }}
-      {...props}
-    >
+      `,
+    style: {
+      transformPerspective: 480,
+      rotateX: interactive ? rotateX : 0,
+      rotateY: interactive ? rotateY : 0,
+    },
+    onPointerEnter: interactive ? handlePointerEnter : undefined,
+    onPointerMove: interactive ? track : undefined,
+    onPointerLeave: interactive ? handlePointerLeave : undefined,
+    whileHover: hoverProps,
+    whileTap: disabled || reducedMotion ? undefined : { scale: 0.98 },
+  };
+
+  const content = (
+    <>
       <span className="relative z-10 flex items-center gap-2 justify-center">
         {children}
       </span>
@@ -152,6 +159,25 @@ export default function Button({
           transition={{ duration: 0.6 }}
         />
       )}
+    </>
+  );
+
+  if (href) {
+    return (
+      <motion.a href={href} onClick={onClick} {...shared} {...props}>
+        {content}
+      </motion.a>
+    );
+  }
+
+  return (
+    <motion.button
+      onClick={onClick}
+      disabled={disabled}
+      {...shared}
+      {...props}
+    >
+      {content}
     </motion.button>
   );
 }
